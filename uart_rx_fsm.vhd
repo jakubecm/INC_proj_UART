@@ -56,14 +56,16 @@ begin
                             end if;
 
                     when AWAITING_STOP =>
-                            if CNT = "10000"
+                            if DIN = '1' then
+                                state_crrt <= VALID;
+                            end if;
+                    
+                    when VALID => state_crrt <= AWAITING_START;
+                end case;
+            end if;
+        end if;
+    end process
 
 
                         
-                                
-
-
-            
-
-
 end architecture;
