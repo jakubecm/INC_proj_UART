@@ -36,7 +36,7 @@ begin
         RST => RST,
         DIN => DIN,
         CNTCLK => cntclk,
-        CNTBIT => cntbit("0011"), -- jenom LSB me zajima, jestli je tam 1000 nebo ne
+        CNTBIT => cntbit(0011), -- jenom LSB me zajima, jestli je tam 1000 nebo ne
         ------------
         DOUT_VLD => vld,
         READ_EN => read_en,
