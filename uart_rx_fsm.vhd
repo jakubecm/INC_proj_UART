@@ -16,7 +16,7 @@ entity UART_RX_FSM is
        -----------Outputy-----------
        DOUT_VLD : out std_logic; -- validacni signal
        READ_EN  : out std_logic; -- povoleni cteni bitu
-       CNT_EN   : out std_logic -- povoleni pocitani bitu
+       CNT_EN   : out std_logic -- povoleni pocitani hodinovych signalu
        -----------------------------
     );
 end entity;
@@ -29,7 +29,7 @@ architecture behavioral of UART_RX_FSM is
 begin
     -----------------Moorovy vystupy-----------------
     READ_EN <= '1' when state_crrt = RECIEVING else '0'; -- pokud je v stavu RECIEVING, povol cteni bitu
-    CNT_EN <= '1' when state_crrt = RECIEVING or state_crrt = STARTED else '0'; -- pokud je v stavu RECIEVING nebo STARTED, povol pocitani bitu
+    CNT_EN <= '1' when state_crrt = RECIEVING or state_crrt = STARTED or state_crrt = AWAITING_STOP else '0'; -- pokud je v stavu RECIEVING nebo STARTED, povol pocitani
     DOUT_VLD <= '1' when state_crrt = VALID else '0'; -- pokud je v stavu VALID, nastav vystup na 1
     --------------------------------------------------
     process(CLK) begin
@@ -62,7 +62,7 @@ begin
 
                     when AWAITING_STOP =>
                             if DIN = '1' then
-                                state_crrt <= VALID; -- stop bit je v poradku, prejdi se do stavu VALID
+                                state_crrt <= VALID; -- stop bit je v poradku, prejdi do stavu VALID
                             end if;
                     
                     when VALID => state_crrt <= AWAITING_START; -- vrat se do stavu AWAITING_START a cekej na dalsi start bit
