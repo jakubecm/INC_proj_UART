@@ -59,6 +59,8 @@ begin
 
                 if read_en = '1' and (cntclk(4) = '1') then
 
+                    cntclk <= "00001";
+
                     case cntbit is
                         when "0000" => DOUT(0) <= DIN;
                         when "0001" => DOUT(1) <= DIN;
@@ -70,7 +72,7 @@ begin
                         when "0111" => DOUT(7) <= DIN;
                         when others => null;
                     end case;
-                    cntclk <= "00001";
+            
                     cntbit <= cntbit + 1;
 
                 elsif read_en = '0' then

@@ -45,7 +45,7 @@ begin
                     
                     when STARTED =>
 
-                        if CNTCLK = "1000" then -- na osmym clocku hodinoveho signalu
+                        if CNTCLK = "01000" then -- na osmym clocku hodinoveho signalu
                             --Zkontroluj start bit--
                             if DIN = '1' then
                                 state_crrt <= AWAITING_START; --start bit je spatne, vrat se do stavu AWAITING_START
@@ -61,7 +61,7 @@ begin
                             end if;
 
                     when AWAITING_STOP =>
-                            if DIN = '1' then
+                            if DIN = '1' and CNTCLK = "01000" then
                                 state_crrt <= VALID; -- stop bit je v poradku, prejdi do stavu VALID
                             end if;
                     
