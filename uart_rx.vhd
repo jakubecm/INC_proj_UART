@@ -24,7 +24,7 @@ end entity;
 architecture behavioral of UART_RX is
     signal cntclk       : std_logic_vector(4 downto 0) := "00000";
     signal cntbit       : std_logic_vector(3 downto 0) := "0000";
-    signal dout_vld     : std_logic;
+    signal vld          : std_logic;
     signal read_en      : std_logic;
     signal cnt_en       : std_logic;
 begin
@@ -36,15 +36,15 @@ begin
         RST => RST,
         DIN => DIN,
         CNTCLK => cntclk,
-        CNTBIT => cntbit(3), -- jenom LSB me zajima, jestli je tam 1000 nebo ne
+        CNTBIT => cntbit("0011"), -- jenom LSB me zajima, jestli je tam 1000 nebo ne
         ------------
-        DOUT_VLD => dout_vld,
+        DOUT_VLD => vld,
         READ_EN => read_en,
         CNT_EN => cnt_en
     );
 
     DOUT <= (others => '0');
-    DOUT_VLD <= dout_vld;
+    DOUT_VLD <= vld;
 
 
     process(CLK) begin
