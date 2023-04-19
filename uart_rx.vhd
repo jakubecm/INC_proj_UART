@@ -36,7 +36,7 @@ begin
         RST => RST,
         DIN => DIN,
         CNTCLK => cntclk,
-        CNTBIT => cntbit, -- jenom LSB me zajima, jestli je tam 1000 nebo ne
+        CNTBIT => cntbit,
         ------------
         OUT_VLD => vld,
         READ_EN => read_en,
@@ -54,12 +54,11 @@ begin
                 if cnt_en = '1' then
                     cntclk <= cntclk + 1;
                 elsif cnt_en = '0' then
-                    cntclk <= "00001";
+                    cntclk <= "00000";
                 end if;
 
                 if read_en = '1' and (cntclk(4) = '1') then
 
-                    cntclk <= "00001";
                     case cntbit is
                         when "0000" => DOUT(0) <= DIN;
                         when "0001" => DOUT(1) <= DIN;
@@ -71,6 +70,7 @@ begin
                         when "0111" => DOUT(7) <= DIN;
                         when others => null;
                     end case;
+                    cntclk <= "00001";
                     cntbit <= cntbit + 1;
 
                 elsif read_en = '0' then
