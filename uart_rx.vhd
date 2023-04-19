@@ -36,7 +36,7 @@ begin
         RST => RST,
         DIN => DIN,
         CNTCLK => cntclk,
-        CNTBIT => cntbit(0011), -- jenom LSB me zajima, jestli je tam 1000 nebo ne
+        CNTBIT => cntbit, -- jenom LSB me zajima, jestli je tam 1000 nebo ne
         ------------
         DOUT_VLD => vld,
         READ_EN => read_en,
@@ -44,7 +44,7 @@ begin
     );
 
     DOUT <= (others => '0');
-    DOUT_VLD <= vld;
+    DOUT_VLD <= '0';
 
 
     process(CLK) begin
@@ -52,11 +52,18 @@ begin
             if RST = '1' then
                 cntclk <= "00000";
                 cntbit <= "0000";
+                DOUT <= "00000000";
             else
                 if cnt_en = '1' then
                     cntclk <= cntclk + 1;
                 elsif cnt_en = '0' then
-                    cntclk <= "00000";
+                    cntclk <= "00001";
+                end if;
+
+                if cntbit = "1000" then
+                    if vld = '1' then
+                        DOUT_VLD <= '1';
+                    end if;
                 end if;
 
                 if read_en = '1' and (cntclk(4) = '1') then
