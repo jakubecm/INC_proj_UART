@@ -44,7 +44,6 @@ begin
     );
 
     DOUT <= (others => '0');
-    DOUT_VLD <= '0';
 
 
     process(CLK) begin
