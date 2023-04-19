@@ -38,10 +38,11 @@ begin
         CNTCLK => cntclk,
         CNTBIT => cntbit, -- jenom LSB me zajima, jestli je tam 1000 nebo ne
         ------------
-        DOUT_VLD => vld,
+        OUT_VLD => vld,
         READ_EN => read_en,
         CNT_EN => cnt_en
     );
+    DOUT_VLD <= vld;
 
     process(CLK) begin
         if rising_edge(CLK) then
@@ -54,12 +55,6 @@ begin
                     cntclk <= cntclk + 1;
                 elsif cnt_en = '0' then
                     cntclk <= "00001";
-                end if;
-
-                if cntbit = "1000" then
-                    if vld = '1' then
-                        DOUT_VLD <= '1';
-                    end if;
                 end if;
 
                 if read_en = '1' and (cntclk(4) = '1') then
