@@ -37,7 +37,7 @@ begin
             if RST = '1' then
                 state_crrt <= AWAITING_START;
             else
-                case state is
+                case state_crrt is
                     when AWAITING_START =>
                         if DIN = '0' then 
                             state_crrt <= STARTED;
