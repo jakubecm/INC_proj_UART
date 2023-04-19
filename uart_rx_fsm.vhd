@@ -10,13 +10,13 @@ entity UART_RX_FSM is
        -----------Inputy-----------
        CLK      : in std_logic; -- hodinovy signal
        RST      : in std_logic; -- reset
-       CNTCLK      : in std_logic_vector(4 downto 0); -- na pocitani hodinovych signalu, nejvic potrebuju pocitat do 24, takze 4 downto 0
-       CNTBIT   : in std_logic_vector(3 downto 0); -- na pocitani zachycenych bitu, nejvic potrebuju pocitat do 8, takze 3 downto 0
        DIN      : in std_logic; -- datova linka
+       CNTCLK   : in std_logic_vector(4 downto 0); -- na pocitani hodinovych signalu, nejvic potrebuju pocitat do 24, takze 4 downto 0
+       CNTBIT   : in std_logic_vector(3 downto 0); -- na pocitani zachycenych bitu, nejvic potrebuju pocitat do 8, takze 3 downto 0
        -----------Outputy-----------
-       DOUT_VLD : out std_logic
-       READ_EN  : out std_logic;
-       CNT_EN   : out std_logic
+       DOUT_VLD : out std_logic; -- validacni signal
+       READ_EN  : out std_logic; -- povoleni cteni bitu
+       CNT_EN   : out std_logic -- povoleni pocitani bitu
        -----------------------------
     );
 end entity;
