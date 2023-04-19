@@ -24,7 +24,7 @@ end entity;
 
 
 architecture behavioral of UART_RX_FSM is
-    type state_types is (AWAITING_START, STARTED, RECIEVING, AWAITING_STOP, VALID)
+    type state_types is (AWAITING_START, STARTED, RECIEVING, AWAITING_STOP, VALID);
     signal state_crrt : state_types := AWAITING_START;
 begin
     -----------------Moorovy vystupy-----------------
@@ -48,7 +48,7 @@ begin
                         if CNTCLK = "1000" then -- na osmym clocku hodinoveho signalu
                             --Zkontroluj start bit--
                             if DIN = '1' then
-                                state_crrt => AWAITING_START; --start bit je spatne, vrat se do stavu AWAITING_START
+                                state_crrt <= AWAITING_START; --start bit je spatne, vrat se do stavu AWAITING_START
                             end if;
 
                         elsif CNTCLK = "11000" then -- na 24. clocku hodinoveho signalu zacni cist data (je to midbit prvniho cteneho bitu)
@@ -69,7 +69,7 @@ begin
                 end case;
             end if;
         end if;
-    end process
+    end process;
 
 
                         
