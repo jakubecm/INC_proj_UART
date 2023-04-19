@@ -43,9 +43,6 @@ begin
         CNT_EN => cnt_en
     );
 
-    DOUT <= (others => '0');
-
-
     process(CLK) begin
         if rising_edge(CLK) then
             if RST = '1' then
