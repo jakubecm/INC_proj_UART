@@ -29,7 +29,7 @@ architecture behavioral of UART_RX_FSM is
 begin
     -----------------Moorovy vystupy-----------------
     READ_EN <= '1' when state_crrt = RECIEVING else '0'; -- pokud je v stavu RECIEVING, povol cteni bitu
-    CNT_EN <= '1' when state_crrt = RECIEVING or state_crrt = STARTED or state_crrt = AWAITING_STOP else '0'; -- pokud je v stavu RECIEVING nebo STARTED, povol pocitani
+    CNT_EN <= '1' when state_crrt = RECIEVING or state_crrt = STARTED or state_crrt = AWAITING_STOP else '0'; -- pokud je v stavu RECIEVING/STARTED/AWAITING_STOP, povol pocitani hodinovych signalu
     OUT_VLD <= '1' when state_crrt = VALID else '0'; -- pokud je v stavu VALID, nastav vystup na 1
     --------------------------------------------------
     process(CLK) begin

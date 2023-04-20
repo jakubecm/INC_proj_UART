@@ -46,21 +46,24 @@ begin
 
     process(CLK) begin
         if rising_edge(CLK) then
+            --------- Pri resetu vynuluj vsechny countery ---------
             if RST = '1' then
                 cntclk <= "00000";
                 cntbit <= "0000";
                 DOUT <= "00000000";
             else
+            --------- Pokud je cnt_en = 1, tak inkrementuj cntclk ---------
                 if cnt_en = '1' then
                     cntclk <= cntclk + 1;
+            --------- Pokud ne, tak vynuluj cntclk ---------
                 elsif cnt_en = '0' then
                     cntclk <= "00000";
                 end if;
+            --------- Pokud je read_en = 1 a posledni bit cntclk je nastaven na 1, tak zapisuj do DOUT ---------
+                if read_en = '1' AND (cntclk(4) = '1') then
 
-                if read_en = '1' and (cntclk(4) = '1') then
-
-                    cntclk <= "00001";
-
+                    cntclk <= "00001"; -- reset cntclk pro dalsi bit
+            ---------- Zapisuj do DOUT podle hodnoty cntbit (jednotlive pripady pro dekoder) ----------
                     case cntbit is
                         when "0000" => DOUT(0) <= DIN;
                         when "0001" => DOUT(1) <= DIN;
@@ -73,8 +76,8 @@ begin
                         when others => null;
                     end case;
             
-                    cntbit <= cntbit + 1;
-
+                    cntbit <= cntbit + 1; -- inkrementace cntbit
+            --------- Pokud neni read_en, tak vynuluj cntbit ---------
                 elsif read_en = '0' then
                     cntbit <= "0000";
                 end if;
