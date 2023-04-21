@@ -51,8 +51,8 @@ begin
                                 state_crrt <= AWAITING_START; --start bit je spatne, vrat se do stavu AWAITING_START
                             end if;
 
-                        elsif CNTCLK = "11000" then -- na 24. clocku hodinoveho signalu zacni cist data (je to midbit prvniho cteneho bitu)
-                            state_crrt <= RECIEVING;
+                        elsif CNTCLK = "10110" then -- na 22. clocku hodinoveho signalu zacni cist data (je to midbit prvniho cteneho bitu)
+                            state_crrt <= RECIEVING; -- spravne bych mel cist na 24. ale zohlednuji zpozdeni
                         end if;
 
                     when RECIEVING =>
