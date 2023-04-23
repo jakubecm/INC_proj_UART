@@ -61,7 +61,7 @@ begin
                             end if;
 
                     when AWAITING_STOP =>
-                            if DIN = '1' and CNTCLK = "01000" then
+                            if DIN = '1' and CNTCLK = "10000" then
                                 state_crrt <= VALID; -- stop bit je v poradku, prejdi do stavu VALID
                             end if;
                     
